@@ -14,15 +14,33 @@
                     <p>Library</p>
                 </div>
                 <div class="main">
-                    <div class="card"></div>
-                    <div class="card"></div>
-                    <div class="card"></div>
-                    <div class="card"></div>
-                    <div class="card"></div>
-                    <div class="card"></div>
-                
                 </div>
         </div>
+        <dialog id="modal" class="modal">
+
+            <form id="create-book">
+                <legend>ADD A NEW BOOK</legend>
+
+                <div id="form-div1">
+                    <div>
+                        <label for="title">Title</label>
+                        <input required type="text" name="title" id="title">
+                    </div>
+                    
+                    <div>
+                        <label for="author">Author</label>
+                        <input required type="text" name="author" id="author">
+                    </div>
+                    
+                    <div>
+                        <label for="pages">Pages</label>
+                        <input required type="number" name="pages" id="pages">
+                    </div>
+                    
+                    <button id="submit-book" class="card-button" type="submit">submit</button>
+                </div>
+            </form>
+        </dialog>
         <button id="add-book">
             <svg style="width:60px;height:60px" viewBox="0 0 24 24">
                 <path fill="currentColor" d="M17,13H13V17H11V13H7V11H11V7H13V11H17M12,
