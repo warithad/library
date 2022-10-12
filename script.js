@@ -1,75 +1,131 @@
 const main = document.querySelector(".main");
 const modal = document.getElementById('modal');
 const openModal = document.getElementById('add-book');
-
-
-const form = document.getElementById('create-book');
-const bookTitle = document.getElementById('title');
-const bookAuthor = document.getElementById('author');
-const bookPages = document.getElementById('pages');
 const submit = document.getElementById('submit-book');
 
-let library = [];
+const form = document.getElementById('create-book');
+// const submit = document.getElementById('submit-book');
 
-function Book(title, author, pages){
-    this.title = title;
-    this.author = author;
-    this.pages = pages;
-    this.read = false;
+const library = (() =>{
+    let shelf = [];
+
+    const addBook = (book) =>{
+        if(typeof book === Book){
+            shelf.push(book);
+        }
+    }
+
+    const removeBook = (book) =>{
+    }
+
+    return {addBook, removeBook};
+})();
+
+class Book {
+    
+    title = '';
+    author ='';
+    pages = '';
+    constructor(title, author, pages){
+        this.title = title;
+        this.author = author;
+        this.pages = pages;
+    }
+
+    get title(){
+        return this.title;
+    }
+
+    get author(){
+        return this.author;
+    }
+
+    get pages(){
+        return this.pages;
+    }
+
+    set title(val){
+        this.title = val;
+    }
+
+    set author(val){
+        this.author = val;
+    }
+
+    set pages(val){
+        this.pages = val;
+    }
 }
 
-function addBookToLibrary(book){
-    library.push(book);
-    
-    
-    const div = createDiv(book);
-    div.classList.add('card');
-    main.appendChild(div);
-}
-
-openModal.addEventListener('click', ()=>{
+openModal.addEventListener('click', () =>{
+    resetInputs();
     modal.showModal();
 })
 
-// creates card div
-function createDiv(book){
-    const div = document.createElement('div');
-    
-    const t = document.createElement('h1');
-    t.classList.add('card-title');
-
-    const a = document.createElement('h2');
-    a.classList.add('card-author');
-    
-    const p = document.createElement('h2');
-    p.classList.add('card-pages');
-
-    const but = document.createElement('button');
-    but.classList.add('card-button');
-    
-    but.textContent = 'Read';
-    t.textContent = book.title.toUpperCase();
-    a.textContent = 'Author: ' + book.author;
-    p.textContent = 'Pages: '+book.pages;
-
-    div.appendChild(t);
-    div.appendChild(a);
-    div.appendChild(p);
-    div.appendChild(but);
-
-    console.log(div);
-    return div;
-}
-
 form.addEventListener('submit', (e)=>{
     e.preventDefault();
-    const book = new Book(bookTitle.value, bookAuthor.value, bookPages.value);
-    console.log(book + ' created');
-    addBookToLibrary(book);
+
+    console.log(e);
+    const title = document.getElementById('title').value;
+    const author = document.getElementById('author').value;
+    const pages = document.getElementById('pages').value;
+
+    const newBook = new Book(title, author, pages);
+    console.log(newBook);
+
+    library.addBook(newBook);
+    addNewDiv(title, author, pages);
     modal.close();
+    
 })
 
-window.onload =()=>{
-    const demoBook = new Book('Hocus Pocus', 'Me', '200');
-    addBookToLibrary(demoBook);
+function addNewDiv(title, author, pages){
+    const div = document.createElement('div');
+
+    console.log(title);
+    const cTitle = document.createElement('h2');
+    cTitle.textContent = `Title: ${title}`;
+    cTitle.classList.add('card-title');
+
+    const cAuthor = document.createElement('h2');
+    cAuthor.textContent = `Author: ${author}`;
+    cAuthor.classList.add('card-author');
+
+    const cPages = document.createElement('h2');
+    cPages.textContent = `Pages: ${pages}`;
+    cAuthor.classList.add('card-pages');
+
+    const buttonDiv = document.createElement('button');
+    buttonDiv.classList.add('read');
+    buttonDiv.textContent = 'Read';
+
+    buttonDiv.addEventListener('click', (e)=>{
+        checkReadStatus(e);
+    });
+
+    div.classList.add('card');
+
+    div.append(cTitle, cAuthor, cPages, buttonDiv);
+
+    main.appendChild(div);
+
+}
+
+const checkReadStatus =(e)=>{
+    if(e.target.textContent === 'Read'){
+        e.target.textContent = 'Unread';
+        e.target.classList.remove('read');
+        e.target.classList.add('unread');
+    }
+    else {
+        e.target.textContent = 'Read';
+        e.target.classList.remove('unread');
+        e.target.classList.add('read');
+    }
+}
+
+function resetInputs(){
+    document.getElementById('title').value = '';
+    document.getElementById('author').value = '';
+    document.getElementById('pages').value = '';
 }

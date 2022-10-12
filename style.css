@@ -44,22 +44,17 @@
     background-color: #fafafa;
     box-shadow: 3px 3px 3px #a3a3a3;
     min-height: 220px;
+    font-family: nunito-bold;
 
     display: flex;
     flex-direction: column;
     gap: 1em;
+    padding-left: 15px;
+    padding-top: 15px;
 }
 
-.card-title {
-    align-self: center;
-}
 
-.card-author, .card-pages {
-    margin-left: 2em;
-    font-weight: 4px;
-}
-
-.card-button {
+.read {
     border-radius: 7px;
     align-self: center;
     border-style: none;
@@ -72,6 +67,30 @@
     padding-bottom: 10px;
     font-weight: 15px;
     color: #fafafa;
+}
+
+.unread {
+    background-color: #166534;
+    border-radius: 7px;
+    align-self: center;
+    border-style: none;
+    font-size: 1.5rem;
+    width: fit-content;
+    padding-left: 20px;
+    padding-right: 20px;
+    padding-top: 5px;
+    padding-bottom: 10px;
+    font-weight: 15px;
+    color: #fafafa;
+
+}
+
+.read:hover{
+    background-color: #262626;
+}
+
+.unread:hover {
+    background-color: #047857;
 }
 
 #add-book {
@@ -148,4 +167,9 @@ legend {
 @font-face {
     font-family: nunito;
     src: url("NunitoSans-Regular.ttf");
+}
+
+@font-face {
+    font-family: nunito-bold;
+    src: url("NunitoSans-Bold.ttf");
 }
